@@ -1,0 +1,30 @@
+@reference "tailwindcss";
+@reference "./index.css";
+
+#root {
+  min-height: 100vh;
+  width: 100%;
+  height: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@layer base {
+  .button-primary {
+    @apply block w-full py-4 rounded-full bg-primary text-white font-semibold hover:opacity-90;
+  }
+
+  .link {
+    @apply inline text-primary;
+  }
+
+  input {
+    @apply border border-secondary rounded-xl p-3;
+  }
+}
+
