@@ -1,48 +1,10 @@
-import * as React from "react";
-import { NavLink, useNavigate } from "react-router";
+import { NavLink } from "react-router";
 import { emailSchema, nameSchema, passwordSchema, notEmptySchema, setAndValidate } from "../helpers/validation";
-import { registerFormValidates, validateConfirmPassword } from "../helpers/registerValidations";
-import supabaseClient from "../../../supabase/supabaseClient";
-import { useDispatch } from "react-redux";
-import { setSession } from "../store/slice/userSlice";
+import { validateConfirmPassword } from "../helpers/registerValidations";
+import useRegisterForm from "./hooks/useRegisterForm";
 
 const RegisterForm = () => {
-    const [ name, setName ] = React.useState('');
-    const [ email, setEmail ] = React.useState('');
-    const [ password, setPassword ] = React.useState('');
-    const [isLoading, setIsLoading] = React.useState(false);
-    const [ repassword, setRepassword ] = React.useState('');
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const onSubmitRegisterForm = async (formData: FormData) => {
-        if (registerFormValidates(formData)) {
-            setIsLoading(true);
-            const { data, error } = await supabaseClient.auth.signUp({
-                email: email,
-                password: password,
-                options: {
-                    data: {
-                        displayName: name
-                    },
-                    emailRedirectTo: '/search',
-                },
-            })
-            if (error) {
-                alert(error.message);
-            } else if (data && data.user && data.session) {
-                dispatch(setSession(data.session));
-                navigate("/search");
-            }
-            setIsLoading(false);
-            console.log(data);
-            console.log(error);
-
-            setName('');
-            setEmail('');
-            setPassword('');
-            setRepassword('');
-        }
-    }
+    const [ name, setName, email, setEmail, password, setPassword, repassword, setRepassword, onSubmitRegisterForm ] = useRegisterForm();
 
     return (<>
         <div className="w-full max-w-sm">
@@ -68,7 +30,7 @@ const RegisterForm = () => {
                     validateConfirmPassword();
                 }} value={ repassword } />
             <div className="repassword__feedback"></div>
-            <button type="submit" className="button-primary">  { isLoading ? "Loading..." : "Register"}</button>
+            <button type="submit" className="button-primary"> "Register" </button>
         </form>
 
         <p className="text-center text-gray-400 mt-6">

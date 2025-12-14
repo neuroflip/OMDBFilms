@@ -1,41 +1,9 @@
-import * as React from "react";
-import { NavLink, useNavigate } from "react-router";
+import { NavLink } from "react-router";
 import { emailSchema, setAndValidate } from "../helpers/validation";
-import { loginFormValidates } from "../helpers/loginValidations";
-import { useDispatch } from "react-redux";
-import { setSession } from "../store/slice/userSlice";
-import supabaseClient from "../../../supabase/supabaseClient";
+import useLoginForm from "./hooks/useLoginForm";
 
 const LoginForm = () => {
-    const [ email, setEmail ] = React.useState('');
-    const [ password, setPassword ] = React.useState('');
-    const [isLoading, setIsLoading] = React.useState(false);
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const onSubmitLoginForm = async(formData: FormData) => {
-        if (loginFormValidates(formData)) {
-            setIsLoading(true);
-            const { data, error } = await supabaseClient.auth.signInWithPassword({
-                email: email,
-                password: password
-            });
-            if (error) {
-                alert(error.message);
-            } else {
-                dispatch(setSession(data.session));
-                navigate("/search");
-            }
-            setIsLoading(false);
-            setEmail('');
-            setPassword('');
-        }
-    }
-
-    const onPaswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const value = (event.target as HTMLInputElement).value;
-
-        setPassword(value);
-    }
+    const [ email, setEmail, password, onSubmitLoginForm, onPaswordChange ] = useLoginForm();
 
     return (<>
         <div className="w-full max-w-sm">
@@ -50,7 +18,7 @@ const LoginForm = () => {
                 <div className="email__feedback"></div>
                 <input type="password" id="password" name="password" placeholder="Password" onChange={ onPaswordChange } value={ password } />
                 <div className="password__feedback"></div>
-                <button type="submit" className="button-primary">  { isLoading ? "Loading..." : "Login"} </button>
+                <button type="submit" className="button-primary">  Login </button>
             </form>
 
             <p className="text-center text-gray-400 mt-6">
