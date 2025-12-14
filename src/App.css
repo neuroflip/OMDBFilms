@@ -26,5 +26,13 @@
   input {
     @apply border border-secondary rounded-xl p-3;
   }
+
+  .valid {
+    @apply border-secondary;
+  }
+
+  .invalid, .invalid:focus {
+    @apply border-primary; 
+  }
 }
 
