@@ -1,26 +1,29 @@
 import * as React from "react";
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 import { emailSchema, setAndValidate } from "../helpers/validation";
 import { loginFormValidates } from "../helpers/loginValidations";
-import { createClient, type Session } from "@supabase/supabase-js";
+import { useDispatch } from "react-redux";
+import { setSession } from "../store/slice/userSlice";
+import supabaseClient from "../../../supabase/supabaseClient";
 
 const LoginForm = () => {
     const [ email, setEmail ] = React.useState('');
     const [ password, setPassword ] = React.useState('');
     const [isLoading, setIsLoading] = React.useState(false);
-    const [session, setSession] = React.useState<Session | null>(null);
-    const supabase = createClient(import.meta.env.VITE_SUPABASE_URL, import.meta.env.VITE_SUPABASE_PUBLISHABLE_DEFAULT_KEY);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const onSubmitLoginForm = async(formData: FormData) => {
         if (loginFormValidates(formData)) {
             setIsLoading(true);
-            const { data, error } = await supabase.auth.signInWithPassword({
+            const { data, error } = await supabaseClient.auth.signInWithPassword({
                 email: email,
                 password: password
             });
             if (error) {
                 alert(error.message);
             } else {
-                setSession(data.session);
+                dispatch(setSession(data.session));
+                navigate("/search");
             }
             setIsLoading(false);
             setEmail('');

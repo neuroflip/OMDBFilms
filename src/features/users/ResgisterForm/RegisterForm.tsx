@@ -1,8 +1,10 @@
 import * as React from "react";
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 import { emailSchema, nameSchema, passwordSchema, notEmptySchema, setAndValidate } from "../helpers/validation";
 import { registerFormValidates, validateConfirmPassword } from "../helpers/registerValidations";
-import { createClient } from "@supabase/supabase-js";
+import supabaseClient from "../../../supabase/supabaseClient";
+import { useDispatch } from "react-redux";
+import { setSession } from "../store/slice/userSlice";
 
 const RegisterForm = () => {
     const [ name, setName ] = React.useState('');
@@ -10,11 +12,12 @@ const RegisterForm = () => {
     const [ password, setPassword ] = React.useState('');
     const [isLoading, setIsLoading] = React.useState(false);
     const [ repassword, setRepassword ] = React.useState('');
-    const supabase = createClient(import.meta.env.VITE_SUPABASE_URL, import.meta.env.VITE_SUPABASE_PUBLISHABLE_DEFAULT_KEY);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const onSubmitRegisterForm = async (formData: FormData) => {
         if (registerFormValidates(formData)) {
             setIsLoading(true);
-            const { data, error } = await supabase.auth.signUp({
+            const { data, error } = await supabaseClient.auth.signUp({
                 email: email,
                 password: password,
                 options: {
@@ -26,8 +29,9 @@ const RegisterForm = () => {
             })
             if (error) {
                 alert(error.message);
-            } else {
-                //setSession(data.session);
+            } else if (data && data.user && data.session) {
+                dispatch(setSession(data.session));
+                navigate("/search");
             }
             setIsLoading(false);
             console.log(data);
