@@ -2,13 +2,27 @@ import * as React from "react";
 import { NavLink } from "react-router";
 import { emailSchema, setAndValidate } from "../helpers/validation";
 import { loginFormValidates } from "../helpers/loginValidations";
+import { createClient, type Session } from "@supabase/supabase-js";
 
 const LoginForm = () => {
     const [ email, setEmail ] = React.useState('');
     const [ password, setPassword ] = React.useState('');
-    
-    const onSubmitLoginForm = (formData: FormData) => {
+    const [isLoading, setIsLoading] = React.useState(false);
+    const [session, setSession] = React.useState<Session | null>(null);
+    const supabase = createClient(import.meta.env.VITE_SUPABASE_URL, import.meta.env.VITE_SUPABASE_PUBLISHABLE_DEFAULT_KEY);
+    const onSubmitLoginForm = async(formData: FormData) => {
         if (loginFormValidates(formData)) {
+            setIsLoading(true);
+            const { data, error } = await supabase.auth.signInWithPassword({
+                email: email,
+                password: password
+            });
+            if (error) {
+                alert(error.message);
+            } else {
+                setSession(data.session);
+            }
+            setIsLoading(false);
             setEmail('');
             setPassword('');
         }
@@ -33,12 +47,12 @@ const LoginForm = () => {
                 <div className="email__feedback"></div>
                 <input type="password" id="password" name="password" placeholder="Password" onChange={ onPaswordChange } value={ password } />
                 <div className="password__feedback"></div>
-                <button type="submit" className="button-primary"> Login </button>
+                <button type="submit" className="button-primary">  { isLoading ? "Loading..." : "Login"} </button>
             </form>
 
             <p className="text-center text-gray-400 mt-6">
                 Don't have an account?
-                <NavLink to="/register" className="link"> Register</NavLink>
+                <NavLink to="/register" className="link"> Register </NavLink>
             </p>
         </div>
     </>)

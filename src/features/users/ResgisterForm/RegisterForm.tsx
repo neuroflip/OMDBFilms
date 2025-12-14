@@ -2,14 +2,37 @@ import * as React from "react";
 import { NavLink } from "react-router";
 import { emailSchema, nameSchema, passwordSchema, notEmptySchema, setAndValidate } from "../helpers/validation";
 import { registerFormValidates, validateConfirmPassword } from "../helpers/registerValidations";
+import { createClient } from "@supabase/supabase-js";
 
 const RegisterForm = () => {
     const [ name, setName ] = React.useState('');
     const [ email, setEmail ] = React.useState('');
     const [ password, setPassword ] = React.useState('');
+    const [isLoading, setIsLoading] = React.useState(false);
     const [ repassword, setRepassword ] = React.useState('');
-    const onSubmitRegisterForm = (formData: FormData) => {
+    const supabase = createClient(import.meta.env.VITE_SUPABASE_URL, import.meta.env.VITE_SUPABASE_PUBLISHABLE_DEFAULT_KEY);
+    const onSubmitRegisterForm = async (formData: FormData) => {
         if (registerFormValidates(formData)) {
+            setIsLoading(true);
+            const { data, error } = await supabase.auth.signUp({
+                email: email,
+                password: password,
+                options: {
+                    data: {
+                        displayName: name
+                    },
+                    emailRedirectTo: '/search',
+                },
+            })
+            if (error) {
+                alert(error.message);
+            } else {
+                //setSession(data.session);
+            }
+            setIsLoading(false);
+            console.log(data);
+            console.log(error);
+
             setName('');
             setEmail('');
             setPassword('');
@@ -41,7 +64,7 @@ const RegisterForm = () => {
                     validateConfirmPassword();
                 }} value={ repassword } />
             <div className="repassword__feedback"></div>
-            <button type="submit" className="button-primary"> Register </button>
+            <button type="submit" className="button-primary">  { isLoading ? "Loading..." : "Register"}</button>
         </form>
 
         <p className="text-center text-gray-400 mt-6">
