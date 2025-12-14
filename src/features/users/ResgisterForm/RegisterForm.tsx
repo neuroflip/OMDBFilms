@@ -1,6 +1,7 @@
-import { NavLink } from "react-router";
-import { emailSchema, registerFormValidates, nameSchema, passwordSchema, notEmptySchema, setAndValidate, validateConfirmPassword } from "../helpers/validation";
 import * as React from "react";
+import { NavLink } from "react-router";
+import { emailSchema, nameSchema, passwordSchema, notEmptySchema, setAndValidate } from "../helpers/validation";
+import { registerFormValidates, validateConfirmPassword } from "../helpers/registerValidations";
 
 const RegisterForm = () => {
     const [ name, setName ] = React.useState('');

@@ -1,8 +1,9 @@
 import * as React from "react";
 import { NavLink } from "react-router";
-import { emailSchema, loginFormValidates, setAndValidate } from "../helpers/validation";
+import { emailSchema, setAndValidate } from "../helpers/validation";
+import { loginFormValidates } from "../helpers/loginValidations";
 
-const Login = () => {
+const LoginForm = () => {
     const [ email, setEmail ] = React.useState('');
     const [ password, setPassword ] = React.useState('');
     
@@ -43,4 +44,4 @@ const Login = () => {
     </>)
 }
 
-export default Login;
+export default LoginForm;

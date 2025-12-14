@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router";
 import { RouterProvider } from "react-router/dom";
 import Landing from './pages/Landing/Landing'
 import RegisterForm from "./features/users/ResgisterForm/RegisterForm";
-import Login from "./features/users/Login/Login";
+import LoginForm from "./features/users/LoginForm/LoginForm";
 import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
 
 import './App.css'
@@ -15,7 +15,7 @@ const router = createBrowserRouter([{
   element: <Landing />
 },{
   path: "/login",
-  element: <Login />
+  element: <LoginForm />
 },{
   path: "/register",
   element: <RegisterForm />
