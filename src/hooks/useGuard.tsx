@@ -11,7 +11,7 @@ const useGuard = () => {
         if (!session) {
             navigate("/");
         }
-    }, [session]);
+    }, [session, navigate]);
 }
 
 export default useGuard;
