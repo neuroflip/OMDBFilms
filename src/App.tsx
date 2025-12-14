@@ -4,11 +4,13 @@ import Landing from './pages/Landing/Landing'
 import RegisterForm from "./features/users/ResgisterForm/RegisterForm";
 import LoginForm from "./features/users/LoginForm/LoginForm";
 import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
-
-import './App.css'
+import { store } from "./store/store";
+import { Provider } from 'react-redux';
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
+import Search from "./pages/Search/Search";
 
+import './App.css';
 
 const router = createBrowserRouter([{
   path: "/",
@@ -19,13 +21,18 @@ const router = createBrowserRouter([{
 },{
   path: "/register",
   element: <RegisterForm />
+},{
+  path: "/search",
+  element: <Search />
 }]);
 
 const App = () => {
   return (<ErrorBoundary fallback={ <p>There is a problem rendering the App. Please reload and try again.</p> }>
-    <Header />
-    <RouterProvider router={ router } />
-    <Footer />
+     <Provider store={store}>
+      <Header />
+      <RouterProvider router={ router } />
+      <Footer />
+    </Provider>
   </ErrorBoundary>)
 }
 

@@ -1,6 +1,9 @@
 import { NavLink } from "react-router";
+import useSession from "../../hooks/useSession";
 
 const Landing = () => {
+    useSession("/search");
+    
     return (<>
         <main className="flex flex-col items-center justify-center text-center px-6 h-full w-full">
             <h2 className="text-4xl font-bold text-primary mb-4">Search for Movies</h2>

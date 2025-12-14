@@ -1,24 +1,9 @@
-import * as React from "react";
 import { NavLink } from "react-router";
 import { emailSchema, setAndValidate } from "../helpers/validation";
-import { loginFormValidates } from "../helpers/loginValidations";
+import useLoginForm from "./hooks/useLoginForm";
 
 const LoginForm = () => {
-    const [ email, setEmail ] = React.useState('');
-    const [ password, setPassword ] = React.useState('');
-    
-    const onSubmitLoginForm = (formData: FormData) => {
-        if (loginFormValidates(formData)) {
-            setEmail('');
-            setPassword('');
-        }
-    }
-
-    const onPaswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const value = (event.target as HTMLInputElement).value;
-
-        setPassword(value);
-    }
+    const [ email, setEmail, password, onSubmitLoginForm, onPaswordChange ] = useLoginForm();
 
     return (<>
         <div className="w-full max-w-sm">
@@ -33,12 +18,12 @@ const LoginForm = () => {
                 <div className="email__feedback"></div>
                 <input type="password" id="password" name="password" placeholder="Password" onChange={ onPaswordChange } value={ password } />
                 <div className="password__feedback"></div>
-                <button type="submit" className="button-primary"> Login </button>
+                <button type="submit" className="button-primary">  Login </button>
             </form>
 
             <p className="text-center text-gray-400 mt-6">
                 Don't have an account?
-                <NavLink to="/register" className="link"> Register</NavLink>
+                <NavLink to="/register" className="link"> Register </NavLink>
             </p>
         </div>
     </>)

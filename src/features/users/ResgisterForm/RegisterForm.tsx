@@ -1,21 +1,10 @@
-import * as React from "react";
 import { NavLink } from "react-router";
 import { emailSchema, nameSchema, passwordSchema, notEmptySchema, setAndValidate } from "../helpers/validation";
-import { registerFormValidates, validateConfirmPassword } from "../helpers/registerValidations";
+import { validateConfirmPassword } from "../helpers/registerValidations";
+import useRegisterForm from "./hooks/useRegisterForm";
 
 const RegisterForm = () => {
-    const [ name, setName ] = React.useState('');
-    const [ email, setEmail ] = React.useState('');
-    const [ password, setPassword ] = React.useState('');
-    const [ repassword, setRepassword ] = React.useState('');
-    const onSubmitRegisterForm = (formData: FormData) => {
-        if (registerFormValidates(formData)) {
-            setName('');
-            setEmail('');
-            setPassword('');
-            setRepassword('');
-        }
-    }
+    const [ name, setName, email, setEmail, password, setPassword, repassword, setRepassword, onSubmitRegisterForm ] = useRegisterForm();
 
     return (<>
         <div className="w-full max-w-sm">
@@ -41,7 +30,7 @@ const RegisterForm = () => {
                     validateConfirmPassword();
                 }} value={ repassword } />
             <div className="repassword__feedback"></div>
-            <button type="submit" className="button-primary"> Register </button>
+            <button type="submit" className="button-primary"> "Register" </button>
         </form>
 
         <p className="text-center text-gray-400 mt-6">
