@@ -6,8 +6,6 @@ import LoginForm from "./features/users/LoginForm/LoginForm";
 import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
 import { store } from "./store/store";
 import { Provider } from 'react-redux';
-import Header from "./components/Header/Header";
-import Footer from "./components/Footer/Footer";
 import Search from "./pages/Search/Search";
 
 import './App.css';
@@ -29,9 +27,7 @@ const router = createBrowserRouter([{
 const App = () => {
   return (<ErrorBoundary fallback={ <p>There is a problem rendering the App. Please reload and try again.</p> }>
      <Provider store={store}>
-      <Header />
       <RouterProvider router={ router } />
-      <Footer />
     </Provider>
   </ErrorBoundary>)
 }
