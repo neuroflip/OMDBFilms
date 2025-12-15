@@ -7,12 +7,12 @@ const selectUserSession = createSelector(
 
 const selectUserUUID = createSelector(
   (state) => state.user,
-  (user) => user.session.id
+  (user) => user.session?.id
 );
 
 const selectUserDisplayName = createSelector(
   (state) => state.user,
-  (user) => user.session.user.user_metadata.displayName
+  (user) => user.session?.user.user_metadata.displayName
 );
 
 export { selectUserSession, selectUserUUID, selectUserDisplayName };
