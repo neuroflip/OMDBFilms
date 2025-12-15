@@ -14,9 +14,11 @@ const LoginForm = () => {
             </p>
 
             <form className="space-y-4" action={ onSubmitLoginForm } noValidate>
-                <input type="email" id="email" name="email" placeholder="Email" onChange={ () => { setAndValidate(setEmail, 'email', emailSchema) }} value={ email } />
+                <input type="email" id="email" name="email" placeholder="Email"
+                    onChange={ () => { setAndValidate(setEmail, 'email', emailSchema) }} value={ email } />
                 <div className="email__feedback"></div>
-                <input type="password" id="password" name="password" placeholder="Password" onChange={ onPaswordChange } value={ password } />
+                <input type="password" id="password" name="password" placeholder="Password"
+                    onChange={ onPaswordChange } value={ password } />
                 <div className="password__feedback"></div>
                 <button type="submit" className="button-primary">  Login </button>
             </form>
