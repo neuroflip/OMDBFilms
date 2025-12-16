@@ -8,14 +8,20 @@ interface FilmsState {
   films: Array<Film>,
   currentPage: number,
   searchQuery: string,
-  totalFilms: number
+  totalFilms: number,
+  totalPages: number,
+  isLoading: boolean,
+  error: string | null
 }
 
 const initialState: FilmsState = {
   films: [],
   currentPage: 1,
   searchQuery: "",
-  totalFilms: 0
+  totalFilms: 0,
+  totalPages: 0,
+  isLoading: false,
+  error: null
 }
 
 const fetchFilm = async (term: string, page: number) => {
@@ -54,21 +60,36 @@ const filmsSlice = createSlice({
     },
     setSearchQuery: (state, action: PayloadAction<string>) => {
       state.searchQuery = action.payload;
+    },
+    setTotalPages: (state, action: PayloadAction<number>) => {
+      state.totalPages = action.payload;
     }
   },
   extraReducers: (builder) => {
-    builder.addCase(searchFilms.fulfilled, (state, action) => {
-      if (state.currentPage === 1) {
-        state.films = action.payload.Search ? [...action.payload.Search] : [];
-        state.totalFilms = Number(action.payload.totalResults);
+    builder.addCase(searchFilms.pending, (state) => {
+      state.isLoading = true;
+      state.error = null;
+    })
+    .addCase(searchFilms.rejected, (state) => {
+      state.isLoading = false;
+    })
+    .addCase(searchFilms.fulfilled, (state, action) => {
+      if (!action.payload.Error) {
+        if (state.currentPage === 1) {
+          state.films = action.payload.Search ? [...action.payload.Search] : [];
+          state.totalFilms = Number(action.payload.totalResults);
+        } else {
+          state.films = action.payload.Search ? 
+            [...state.films, ...action.payload.Search] : [...state.films];
+        }
       } else {
-        state.films = action.payload.Search ? 
-          [...state.films, ...action.payload.Search] : [...state.films];
+        state.error = action.payload.Error;
       }
+      state.isLoading = false;
     })
   }
 })
 
 export { filmsSlice, type FilmsState, searchFilms };
-export const { cleanFilms, setPage, setSearchQuery } = filmsSlice.actions
+export const { cleanFilms, setPage, setSearchQuery, setTotalPages } = filmsSlice.actions
 export default filmsSlice.reducer

@@ -1,30 +1,34 @@
 import * as React from "react";
 
-const useIntersectionObserver = (callback: () => void) => {
-    React.useEffect(() => {
-        const intersectionElement = document.getElementById("listIntersectionElement");
-        const handleIntersection: IntersectionObserverCallback = (entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    callback();
-                    if (intersectionElement) {
-                        observer.unobserve(intersectionElement);
+const useIntersectionObserver = (callback: () => void, needsToCallback: boolean) => {
+    const intersectionElementRef = React.useRef<HTMLDivElement | null>(null);
+    const handleIntersection: IntersectionObserverCallback = React.useCallback((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                if (intersectionElementRef.current) {
+                    observer.unobserve(intersectionElementRef.current);
+                    if (needsToCallback) {
+                        callback();
                     }
                 }
-            });
-        }
-        const observer = new IntersectionObserver(handleIntersection);
+            }
+        });
+    }, [callback, needsToCallback]);
+    const observer = new IntersectionObserver(handleIntersection);
 
-        if (intersectionElement) {
-            observer.observe(intersectionElement);   
+    React.useEffect(() => {
+        if (intersectionElementRef.current) {
+            observer.observe(intersectionElementRef.current);
         }
 
         return (() => {
-            if (intersectionElement) {
-                observer.unobserve(intersectionElement);
+            if (intersectionElementRef.current) {
+                observer.unobserve(intersectionElementRef.current);
             }
-        })
-    }, [callback])
+        });
+    }, [handleIntersection]);
+
+    return intersectionElementRef
 }
 
 export default useIntersectionObserver;
