@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, type AsyncThunkConfig, type GetThunkAPI, type PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import type { Film } from '../../../../filmListing/Card/Cart.types';
 import type { RootState } from '../../../../../store/store';
 
@@ -58,8 +58,13 @@ const filmsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(searchFilms.fulfilled, (state, action) => {
-      state.films = action.payload.Search ? [...action.payload.Search] : [];
-      state.totalFilms = Number(action.payload.totalResults);
+      if (state.currentPage === 1) {
+        state.films = action.payload.Search ? [...action.payload.Search] : [];
+        state.totalFilms = Number(action.payload.totalResults);
+      } else {
+        state.films = action.payload.Search ? 
+          [...state.films, ...action.payload.Search] : [...state.films];
+      }
     })
   }
 })

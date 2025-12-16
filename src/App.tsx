@@ -1,8 +1,8 @@
 import { createBrowserRouter } from "react-router";
 import { RouterProvider } from "react-router/dom";
 import Landing from './pages/Landing/Landing'
-import RegisterForm from "./features/users/ResgisterForm/RegisterForm";
-import LoginForm from "./features/users/LoginForm/LoginForm";
+import Register from "./pages/Register/Register";
+import Login from "./pages/Login/Login";
 import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
 import { store } from "./store/store";
 import { Provider } from 'react-redux';
@@ -15,10 +15,10 @@ const router = createBrowserRouter([{
   element: <Landing />
 },{
   path: "/login",
-  element: <LoginForm />
+  element: <Login />
 },{
   path: "/register",
-  element: <RegisterForm />
+  element: <Register />
 },{
   path: "/search",
   element: <Search />

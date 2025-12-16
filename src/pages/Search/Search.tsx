@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectCurrentPage, selectFilms } from "../../features/search/SearchBar/store/selectors/filmsSelectors";
 import { searchFilms, setPage, setSearchQuery } from "../../features/search/SearchBar/store/slice/filmsSlice";
 import type { AppDispatch } from "../../store/store";
-import Paginator from "../../features/filmListing/Paginator/Paginator";
+//import Paginator from "../../features/filmListing/Paginator/Paginator";
 
 const Search = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -19,21 +19,21 @@ const Search = () => {
         dispatch(setSearchQuery(searchQuery));
         dispatch(searchFilms());
     }
+    /*
     const onPageChange = () => {
         dispatch(searchFilms());
-    }
+    } */
     const onInfiniteScrollNextLoad = () => {
         dispatch(setPage(currentPage + 1));
         dispatch(searchFilms());
     }
     useGuard();
-    
+
+    //        <Paginator onPageClick={ onPageChange } />
     return <>
         <Header />
         <SearchBar onSearchQueryChange={ onSearchQueryChange } />
-        <Paginator onPageClick={ onPageChange } />
         <FilmList films= { films } onInfiniteScrollNextLoad={ onInfiniteScrollNextLoad } />
-        <Paginator onPageClick={ onPageChange } />
         <Footer />
     </>
         
