@@ -2,6 +2,7 @@ import { NavLink } from "react-router";
 import { emailSchema, nameSchema, passwordSchema, notEmptySchema, setAndValidate } from "../helpers/validation";
 import { validateConfirmPassword } from "../helpers/registerValidations";
 import useRegisterForm from "./hooks/useRegisterForm";
+import FormFeedbackElement from "../../../components/FormFeedbackElement/FormFeedbackElement";
 
 const RegisterForm = () => {
     const [ name, setName, email, setEmail, password, setPassword, repassword, setRepassword, onSubmitRegisterForm ] = useRegisterForm();
@@ -16,20 +17,21 @@ const RegisterForm = () => {
         <form className="space-y-4" action={ onSubmitRegisterForm } noValidate>
             <input className="input" id="name" name="name" type="text" placeholder="Name"
                 onChange={ () => { setAndValidate(setName, 'name', nameSchema) }} value={ name } />
-            <div className="name__feedback"></div>
+            <FormFeedbackElement className="name__feedback" />
             <input className="input" id="email" name="email" type="email" placeholder="Email" 
                 onChange={ () => { setAndValidate(setEmail, 'email', emailSchema) }} value={ email } />
-            <div className="email__feedback"></div>    
+            <FormFeedbackElement className="email__feedback"/>    
             <input className="input" id="password" name="password" type="password" placeholder="Password" 
                 onChange={ () => { setAndValidate(setPassword, 'password', passwordSchema) }} value={ password } />
-            <div className="password__feedback"></div>
+            <FormFeedbackElement className="password__feedback"/>
             <input className="input" id="repassword" name="repassword" type="password" placeholder="Confirm password" 
                 onChange={ () => { 
                     setAndValidate(setRepassword, 'repassword', notEmptySchema);
                     validateConfirmPassword();
                 }} value={ repassword } />
-            <div className="repassword__feedback"></div>
-            <button type="submit" className="button-primary"> "Register" </button>
+            <FormFeedbackElement className="repassword__feedback"/>
+            <button type="submit" className="button-primary"> Register </button>
+            <FormFeedbackElement className="general__feedback" />
         </form>
 
         <p className="text-center text-gray-400 mt-6">

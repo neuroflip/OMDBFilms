@@ -1,6 +1,7 @@
 import { NavLink } from "react-router";
 import { emailSchema, setAndValidate } from "../helpers/validation";
 import useLoginForm from "./hooks/useLoginForm";
+import FormFeedbackElement from "../../../components/FormFeedbackElement/FormFeedbackElement";
 
 const LoginForm = () => {
     const [ email, setEmail, password, onSubmitLoginForm, onPaswordChange ] = useLoginForm();
@@ -16,11 +17,12 @@ const LoginForm = () => {
             <form className="space-y-4" action={ onSubmitLoginForm } noValidate>
                 <input className="input" type="email" id="email" name="email" placeholder="Email"
                     onChange={ () => { setAndValidate(setEmail, 'email', emailSchema) }} value={ email } />
-                <div className="email__feedback"></div>
+                <FormFeedbackElement className="email__feedback" />
                 <input className="input" type="password" id="password" name="password" placeholder="Password"
                     onChange={ onPaswordChange } value={ password } />
-                <div className="password__feedback"></div>
+                <FormFeedbackElement className="password__feedback" />
                 <button type="submit" className="button-primary">  Login </button>
+                <FormFeedbackElement className="general__feedback" />
             </form>
 
             <p className="text-center text-gray-400 mt-6">

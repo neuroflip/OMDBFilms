@@ -2,7 +2,7 @@ import * as React from "react";
 import { useDispatch } from "react-redux";
 import { setSession } from "../features/users/store/slice/userSlice";
 import { useNavigate } from "react-router";
-import supabaseClient from "../supabase/supabaseClient";
+import supabaseClient from "../dbConfig/supabaseClient";
 
 const useSession = (redirectPage?: string) => {
     const dispatch = useDispatch();

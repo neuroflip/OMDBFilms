@@ -12,7 +12,11 @@ const useSearchBar = (onSearchQueryChange: (searchQuery: string) => void, onSear
         if (bouncingTimeout !== 0) {
             clearTimeout(bouncingTimeout);
         }
-        setBouncingTimeout(setTimeout(onSearch, 1000));
+        if (value.length > 0 && value.trim().length > 0) {
+            setBouncingTimeout(setTimeout(() => {
+                onSearch();
+            }, 1000));
+        }
     }
 
     return [ onQueryChange, searchQuery ];

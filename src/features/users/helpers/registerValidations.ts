@@ -30,23 +30,19 @@ const cleanErrorsOnSubmit = () => {
 
   if (nameFeedbackElement && nameElement) {
     nameFeedbackElement.textContent = '';
-    nameElement.classList.remove(INVALIDCLASS);
-    nameElement.classList.remove(VALIDCLASS);
+    nameElement.classList.remove(INVALIDCLASS, VALIDCLASS);
   }
   if (passwordFeedbackElement && passwordElement) {
     passwordFeedbackElement.textContent = '';
-    passwordElement.classList.remove(INVALIDCLASS);
-    passwordElement.classList.remove(VALIDCLASS);
+    passwordElement.classList.remove(INVALIDCLASS, VALIDCLASS);
   }
   if (repasswordFeedbackElement && repasswordElement) {
     repasswordFeedbackElement.textContent = '';
-    repasswordElement.classList.remove(INVALIDCLASS);
-    repasswordElement.classList.remove(VALIDCLASS);
+    repasswordElement.classList.remove(INVALIDCLASS, VALIDCLASS);
   }
   if (emailFeedbackElement && emailElement) {
     emailFeedbackElement.textContent = '';
-    emailElement.classList.remove(INVALIDCLASS);
-    emailElement.classList.remove(VALIDCLASS);
+    emailElement.classList.remove(INVALIDCLASS, VALIDCLASS);
   }
 }
 
@@ -55,7 +51,7 @@ const registerFormValidates = (formData: FormData) => {
   const passwordValidates = validateInput('.password__feedback', 'password', formData.get('password') as string || '', passwordSchema);
   const repasswordValidates = validateInput('.repassword__feedback', 'repassword', formData.get('repassword') as string || '', notEmptySchema) && 
     validateConfirmPassword();
-  const emailValidates = validateInput('.email__feedback', 'name', formData.get('email') as string || '', emailSchema);
+  const emailValidates = validateInput('.email__feedback', 'email', formData.get('email') as string || '', emailSchema);
 
   if (nameValidates && passwordValidates && repasswordValidates && emailValidates) {
     cleanErrorsOnSubmit();
