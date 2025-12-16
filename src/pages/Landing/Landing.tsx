@@ -8,7 +8,7 @@ const Landing = () => {
     
     return (<>
         <Header />
-        <main className="flex flex-col items-center justify-center text-center px-6 h-full w-full">
+        <main className="flex flex-col items-center justify-center text-center px-6 h-[80vh] w-full">
             <h2 className="text-4xl font-bold text-primary mb-4">Search for Movies</h2>
             <p className="text-gray-400 mb-8">
                 Find information about your favorite movies, series and episodes using OMDb API.
