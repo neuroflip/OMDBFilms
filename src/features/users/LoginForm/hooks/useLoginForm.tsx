@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { setSession } from "../../store/slice/userSlice";
 import supabaseClient from "../../../../supabase/supabaseClient";
 import { useNavigate } from "react-router";
+import { setFormError } from "../../helpers/validation";
 
 const useLoginForm = (): [ string, React.Dispatch<React.SetStateAction<string>>, string,
     (formData: FormData) => void, (event: React.ChangeEvent<HTMLInputElement>) => void ] => {
@@ -18,8 +19,9 @@ const useLoginForm = (): [ string, React.Dispatch<React.SetStateAction<string>>,
                 password: password
             });
             if (error) {
-                alert(error.message);
+                setFormError(error.message);
             } else {
+                setFormError("");
                 dispatch(setSession(data.session));
                 navigate("/search");
             }

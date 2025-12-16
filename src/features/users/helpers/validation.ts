@@ -16,12 +16,12 @@ const passwordSchema = z.string().min(6, {
     message: "The password must have at least one special character (!@#$%^&*)"
   });
 const notEmptySchema = z.string().min(1, {
-    message: "The repassword cannot be empty"
+    message: "The password cannot be empty"
   });
 const passwordConfirmationSchema = z.object({ password: passwordSchema, repassword: notEmptySchema}).refine((data) => data.password === data.repassword, {
     message: "The password confirmation is incorrect"
   });
-const emailSchema = z.email("The email is not in the correct format").min(5).max(50);
+const emailSchema = z.email("The email is not in the correct format").min(1, "The email cannot be empty").max(50);
 
 const validateInput = (feedbackSelector: string, elementId: string, value: string, schema: z.ZodString | z.ZodEmail | z.ZodObject) => {
   const feedbackElement = document.querySelector(feedbackSelector);
@@ -45,6 +45,15 @@ const generateUIfeedback = (result: z.ZodSafeParseResult<string | Record<string,
   }
 }
 
+const setFormError = (error: string) => {
+    const feedbackElement = document.querySelector(".general__feedback");
+
+    if (feedbackElement) {
+        (feedbackElement  as HTMLDivElement).innerText = error;
+    }
+}
+
+
 const setAndValidate = (setFunction: React.Dispatch<React.SetStateAction<string>>, elementId: string, schema: z.ZodString | z.ZodEmail | z.ZodObject) => {
     const value = (document.getElementById(elementId) as HTMLInputElement).value;
 
@@ -52,4 +61,4 @@ const setAndValidate = (setFunction: React.Dispatch<React.SetStateAction<string>
     validateInput(`.${elementId}__feedback`, elementId, value, schema);
 }
 
-export { validateInput, setAndValidate, generateUIfeedback, nameSchema, passwordSchema, notEmptySchema, passwordConfirmationSchema, emailSchema };
+export { validateInput, setAndValidate, generateUIfeedback, setFormError, nameSchema, passwordSchema, notEmptySchema, passwordConfirmationSchema, emailSchema };

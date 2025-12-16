@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 import { registerFormValidates } from "../../helpers/registerValidations";
 import supabaseClient from "../../../../supabase/supabaseClient";
 import { setSession } from "../../store/slice/userSlice";
+import { setFormError } from "../../helpers/validation";
 
 const useRegisterForm = (): [ string, React.Dispatch<React.SetStateAction<string>>, string, React.Dispatch<React.SetStateAction<string>>, 
     string, React.Dispatch<React.SetStateAction<string>>, string, React.Dispatch<React.SetStateAction<string>>, (formData: FormData) => void ] => {
@@ -25,8 +26,9 @@ const useRegisterForm = (): [ string, React.Dispatch<React.SetStateAction<string
             });
 
             if (error) {
-                alert(error.message);
+                setFormError(error.message);
             } else if (data && data.user && data.session) {
+                setFormError("");
                 dispatch(setSession(data.session));
                 navigate("/search");
             }
