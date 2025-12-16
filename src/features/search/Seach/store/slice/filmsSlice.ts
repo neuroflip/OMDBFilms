@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { Film } from '../../../filmListing/Card/Cart.types';
-import type { RootState } from '../../../../store/store';
+import type { Film } from '../../../../filmListing/Card/Cart.types';
+import type { RootState } from '../../../../../store/store';
 
 const API_URL = 'https://www.omdbapi.com/?s=';
 
