@@ -9,6 +9,7 @@ import { Provider } from 'react-redux';
 import Search from "./pages/Search/Search";
 
 import './App.css';
+import FilmDetail from "./features/filmDetail/FilmDetail";
 
 const router = createBrowserRouter([{
   path: "/",
@@ -22,6 +23,9 @@ const router = createBrowserRouter([{
 },{
   path: "/search",
   element: <Search />
+},{
+  path: "/film/:id",
+  element: <FilmDetail />
 }]);
 
 const App = () => {
