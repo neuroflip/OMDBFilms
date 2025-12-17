@@ -1,14 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import type { Session } from '@supabase/supabase-js'
-
-interface UserState {
-  session: Session | null
-}
-
-const initialState: UserState = {
-  session: null
-}
+import { initialState } from './state.types';
 
 const userSlice = createSlice({
   name: 'user',
@@ -20,9 +13,9 @@ const userSlice = createSlice({
     cleanSession: (state) => {
         state.session = null;
     }
-  },
+  }
 })
 
-export { userSlice, type UserState };
+export { userSlice };
 export const { setSession, cleanSession } = userSlice.actions
 export default userSlice.reducer

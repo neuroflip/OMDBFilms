@@ -1,4 +1,4 @@
-import type { Film } from "../FilmCard/Card.types";
+import type { Film } from "../../../components/FilmCard/FilmCard.types";
 
 type FilmListProps = {
     films: Array<Film>,

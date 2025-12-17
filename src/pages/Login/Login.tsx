@@ -5,7 +5,7 @@ import LoginForm from "../../features/users/LoginForm/LoginForm";
 const Login = () => {
   return (<>
     <Header />
-    <main className="flex flex-col w-full h-[80vh]">
+    <main className="flex flex-col w-full min-h-[80vh]">
       <LoginForm />
     </main>
     <Footer />

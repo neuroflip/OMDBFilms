@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { NavLink, useNavigate, useParams } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { setImdb } from '../store/slice/filmSlice';
 import { searchFilm } from '../store/slice/filmSlice';
@@ -7,45 +7,17 @@ import { selectFilm, selectIsLoading } from '../store/selectors/filmSelectors';
 import type { AppDispatch } from '../../../store/store';
 import Spinner from '../../../components/Spinner/Spinner';
 import FilmCard from '../../../components/FilmCard/FilmCard';
-/*
-    Title: string,
-    Year: string,
-    Rated?: string,
-    Released?: string,
-    Runtime?: string,
-    Genre?: string,
-    Director?: string,
-    Writer?: string,
-    Actors?: string,
-    Plot?: string,
-    Language?: string,
-    Country?: string,
-    Awards?: string,
-    Poster: string,
-    Ratings?: Array<Rating>,
-    Metascore?: string,
-    imdbRating?: string,
-    imdbVotes?: string,
-    imdbID: string,
-    Type?: string,
-    Dvd?: string,
-    BoxOffice?: string,
-    Production?: string,
-    Website?: string,
-    Response?: string
-*/
-const FilmDetail = () => {
+import type { DetailProps } from './Detail.types';
+
+const Detail = ({ imdb }: DetailProps) => {
     const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
-    const imdb = useParams().id;
     const loadedFilm = useSelector(selectFilm);
     const isLoading = useSelector(selectIsLoading);
     
     React.useEffect(() => {
-        if (imdb) {
-            dispatch(setImdb(imdb));
-            dispatch(searchFilm());
-        }        
+        dispatch(setImdb(imdb));
+        dispatch(searchFilm());
     }, []);
 
     return <div className="flex flex-col m-auto max-w-lg bg-linear-90 rounded-xl p-5 align-middle items-center justify-center">
@@ -68,4 +40,4 @@ const FilmDetail = () => {
     </div>;
 }
 
-export default FilmDetail;
+export default Detail;

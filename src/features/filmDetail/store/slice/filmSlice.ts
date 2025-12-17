@@ -1,34 +1,9 @@
 import { createAsyncThunk, createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { Film } from '../../../../components/FilmCard/FilmCard.types';
 import type { RootState } from '../../../../store/store';
+import { fetchFilm } from '../../../../dbConfig/fetch';
+import { initialState } from './state.types';
 
 const API_URL = 'https://www.omdbapi.com/?i=';
-
-interface FilmState {
-  film: Film | null,
-  imdb: string| null,
-  isLoading: boolean,
-  error: string | null
-}
-
-const initialState: FilmState = {
-  film: null,
-  imdb: null,
-  isLoading: false,
-  error: null
-}
-
-const fetchFilm = async (id: string) => {
-  const response = await fetch(`${API_URL}${id}&apikey=${import.meta.env.VITE_OMDB_APIKEY}`);
-
-  if (response.ok) {
-    const result = await response.json();
-
-    return result
-  } else {
-    throw new Error(`Error loading film: ${response.status} - ${response.statusText}`);
-  }
-}
 
 const searchFilm = createAsyncThunk(
   'film/searchFilm',
@@ -39,7 +14,7 @@ const searchFilm = createAsyncThunk(
       let response;
 
       if (imdb) {
-        response = await fetchFilm(imdb);
+        response = await fetchFilm(API_URL, imdb);
       }
       
       return response;
@@ -75,6 +50,6 @@ const filmSlice = createSlice({
   }
 })
 
-export { filmSlice, type FilmState, searchFilm };
+export { filmSlice, searchFilm };
 export const { setImdb } = filmSlice.actions
 export default filmSlice.reducer
