@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { Film } from '../../../../filmListing/Card/Cart.types';
+import type { Film } from '../../../../../components/FilmCard/FilmCard.types';
 import type { RootState } from '../../../../../store/store';
 
 const API_URL = 'https://www.omdbapi.com/?s=';
@@ -24,27 +24,29 @@ const initialState: FilmsState = {
   error: null
 }
 
-const fetchFilm = async (term: string, page: number) => {
+const fetchFilms = async (term: string, page: number) => {
   const response = await fetch(`${API_URL}${term}&page=${page}&apikey=${import.meta.env.VITE_OMDB_APIKEY}`);
 
   if (response.ok) {
     const result = await response.json();
 
     return result
+  } else {
+    throw new Error(`Error loading films: ${response.status} - ${response.statusText}`);
   }
 }
 
 const searchFilms = createAsyncThunk(
-  'films/searchFilm',
+  'films/searchFilms',
   async (_, thunkAPI) => {
+    const state = thunkAPI.getState() as RootState;
     try {
-      const state = thunkAPI.getState() as RootState;
       const searchQuery = state.films.searchQuery;
-      const response = await fetchFilm(searchQuery, state.films.currentPage);
+      const response = await fetchFilms(searchQuery, state.films.currentPage);
       
       return response;
     } catch(error) {
-      console.error(error);
+      state.films.error = (error instanceof Error) ? error.message : "Unknown Error";
     }
   });
 

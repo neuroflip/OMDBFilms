@@ -9,7 +9,7 @@ import { Provider } from 'react-redux';
 import Search from "./pages/Search/Search";
 
 import './App.css';
-import FilmDetail from "./features/filmDetail/FilmDetail";
+import FilmDetail from "./features/filmDetail/FilmDetail/FilmDetail";
 
 const router = createBrowserRouter([{
   path: "/",

@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { Film } from '../../../filmListing/Card/Cart.types';
+import type { Film } from '../../../../components/FilmCard/FilmCard.types';
 import type { RootState } from '../../../../store/store';
 
 const API_URL = 'https://www.omdbapi.com/?s=';
@@ -35,7 +35,7 @@ const fetchFilm = async (term: string, page: number) => {
 }
 
 const searchFilms = createAsyncThunk(
-  'films/searchFilm',
+  'films/searchFilms',
   async (_, thunkAPI) => {
     try {
       const state = thunkAPI.getState() as RootState;

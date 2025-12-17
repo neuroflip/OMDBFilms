@@ -29,10 +29,12 @@ type Film = {
     Production?: string,
     Website?: string,
     Response?: string
+    
 }
-
 type CardProps = {
-    film: Film
+    children?: React.ReactElement
+    film: Film,
+    showActions?: boolean
 };
 
 export type { Film, Rating, CardProps };
