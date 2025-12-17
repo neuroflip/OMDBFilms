@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch } from "../../../../store/store";
 import { selectCurrentPage, selectError, selectFilms, selectIsLoading, selectTotalFilms } from "../../store/selectors/filmsSelectors";
 import { searchFilms, setPage, setSearchQuery } from "../../store/slice/filmsSlice";
-import type { Film } from "../../../filmListing/Card/Cart.types";
+import type { Film } from "../../../../components/FilmCard/FilmCard.types";
 
 const ITEMS_PER_PAGE = 10;
 

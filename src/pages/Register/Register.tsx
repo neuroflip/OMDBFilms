@@ -5,7 +5,7 @@ import RegisterForm from "../../features/users/ResgisterForm/RegisterForm";
 const Register = () => {
   return (<>
     <Header />
-    <main className="flex flex-col w-full h-[80vh]">
+    <main className="flex flex-col w-full min-h-[80vh]">
       <RegisterForm />
     </main>
     <Footer />

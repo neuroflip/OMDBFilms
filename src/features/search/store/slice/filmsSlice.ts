@@ -1,50 +1,21 @@
 import { createAsyncThunk, createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { Film } from '../../../filmListing/Card/Cart.types';
 import type { RootState } from '../../../../store/store';
+import { fetchFilm } from '../../../../dbConfig/fetch';
+import { initialState } from './state.types';
 
 const API_URL = 'https://www.omdbapi.com/?s=';
 
-interface FilmsState {
-  films: Array<Film>,
-  currentPage: number,
-  searchQuery: string,
-  totalFilms: number,
-  totalPages: number,
-  isLoading: boolean,
-  error: string | null
-}
-
-const initialState: FilmsState = {
-  films: [],
-  currentPage: 1,
-  searchQuery: "",
-  totalFilms: 0,
-  totalPages: 0,
-  isLoading: false,
-  error: null
-}
-
-const fetchFilm = async (term: string, page: number) => {
-  const response = await fetch(`${API_URL}${term}&page=${page}&apikey=${import.meta.env.VITE_OMDB_APIKEY}`);
-
-  if (response.ok) {
-    const result = await response.json();
-
-    return result
-  }
-}
-
 const searchFilms = createAsyncThunk(
-  'films/searchFilm',
+  'films/searchFilms',
   async (_, thunkAPI) => {
+    const state = thunkAPI.getState() as RootState;
     try {
-      const state = thunkAPI.getState() as RootState;
       const searchQuery = state.films.searchQuery;
-      const response = await fetchFilm(searchQuery, state.films.currentPage);
+      const response = await fetchFilm(API_URL, searchQuery, state.films.currentPage);
       
       return response;
     } catch(error) {
-      console.error(error);
+      state.films.error = (error instanceof Error) ? error.message : "Unknown Error";
     }
   });
 
@@ -90,6 +61,6 @@ const filmsSlice = createSlice({
   }
 })
 
-export { filmsSlice, type FilmsState, searchFilms };
+export { filmsSlice, searchFilms };
 export const { cleanFilms, setPage, setSearchQuery, setTotalPages } = filmsSlice.actions
 export default filmsSlice.reducer

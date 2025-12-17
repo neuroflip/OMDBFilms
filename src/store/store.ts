@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import userReducer from '../features/users/store/slice/userSlice';
 import filmsReducer from '../features/search/store/slice/filmsSlice';
+import filmReducer from '../features/filmDetail/store/slice/filmSlice';
 
 export const store = configureStore({
   reducer: {
     user: userReducer,
-    films: filmsReducer
+    films: filmsReducer,
+    film: filmReducer
   }
 })
 
