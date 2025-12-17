@@ -10,7 +10,7 @@ const Card = ({ film }: CardProps) => {
     }
 
     const onCardClick = () => {
-        navigate(`/film/${film.ImdbID}`);
+        navigate(`/film/${film.imdbID}`);
     }
 
     return <article className="rounded-xl overflow-hidden mx-5 mb-20 cursor-pointer">
