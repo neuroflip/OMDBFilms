@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch } from "../../../../store/store";
 import { selectCurrentPage, selectError, selectFilms, selectIsLoading, selectTotalFilms } from "../../store/selectors/filmsSelectors";
-import { searchFilms, setPage, setSearchQuery, setQueryType } from "../../store/slice/filmsSlice";
+import { searchFilms, setPage, setSearchQuery, setQueryType, cleanFilms } from "../../store/slice/filmsSlice";
 import type { Film } from "../../../../components/FilmCard/FilmCard.types";
 
 const ITEMS_PER_PAGE = 10;
@@ -22,6 +22,7 @@ const useSearch = (): [ Array<Film>, string | null, number, number, number, bool
 
     const onSearch = () => {
         dispatch(setPage(1));
+        dispatch(cleanFilms());
         dispatch(searchFilms());
     }
 
