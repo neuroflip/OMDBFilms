@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '../../../../store/store';
-import { fetchFilm } from '../../../../helpers/fetch';
+import { searchFilm } from '../../../../helpers/fetch';
 import { initialState } from './state.types';
 
 const API_URL = 'https://www.omdbapi.com/?s=';
@@ -12,7 +12,7 @@ const searchFilms = createAsyncThunk(
     try {
       const searchQuery = state.films.searchQuery;
       const type = state.films.typeQuery.replace('any', '');
-      const response = await fetchFilm(API_URL, searchQuery, type, state.films.currentPage);
+      const response = await searchFilm(API_URL, searchQuery, type, state.films.currentPage);
       
       return response;
     } catch(error) {

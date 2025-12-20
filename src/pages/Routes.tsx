@@ -24,6 +24,6 @@ const router = createBrowserRouter([{
 },{
   path: "*",
   element: <NotFound404 />
-}]);
+}], { basename: "/OMDBFilms/" });
 
 export default router;
