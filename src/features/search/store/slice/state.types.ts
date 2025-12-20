@@ -15,7 +15,7 @@ const initialState: FilmsState = {
   films: [],
   currentPage: 1,
   searchQuery: "",
-  typeQuery: "movie",
+  typeQuery: "any",
   totalFilms: 0,
   totalPages: 0,
   isLoading: false,
