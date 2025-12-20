@@ -7,8 +7,8 @@ const FilmList = ({ films, totalFilms, currentPage, totalPages, isLoading, error
     const intersectionElementRef = useIntersectionObserver(onInfiniteScrollNextLoad, currentPage + 1 <= totalPages);
 
     return <>
-        <div className="col-start-1 col-end-2 sm:col-end-4 lg:col-end-6 mb-5 text-left mx-10 sm:mx-5 sm:px-20">
-            { error ? `Error from API: ${error}` : films.length > 0 ? `${totalFilms} results` : <></> }
+        <div className="col-start-1 col-end-2 sm:col-end-4 lg:col-end-6 mb-5 mx-10 sm:mx-5 sm:px-20">
+            { error ? error : films.length > 0 ? `${totalFilms} results` : <></> }
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 sm:px-20">
             { films.map((film) => <FilmCard showActions={ false } key={ film.imdbID } film={ film } />) }

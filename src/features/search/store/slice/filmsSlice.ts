@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '../../../../store/store';
-import { fetchFilm } from '../../../../dbConfig/fetch';
+import { searchFilm } from '../../../../helpers/fetch';
 import { initialState } from './state.types';
 
 const API_URL = 'https://www.omdbapi.com/?s=';
@@ -11,7 +11,8 @@ const searchFilms = createAsyncThunk(
     const state = thunkAPI.getState() as RootState;
     try {
       const searchQuery = state.films.searchQuery;
-      const response = await fetchFilm(API_URL, searchQuery, state.films.currentPage);
+      const type = state.films.typeQuery.replace('any', '');
+      const response = await searchFilm(API_URL, searchQuery, type, state.films.currentPage);
       
       return response;
     } catch(error) {
@@ -34,7 +35,10 @@ const filmsSlice = createSlice({
     },
     setTotalPages: (state, action: PayloadAction<number>) => {
       state.totalPages = action.payload;
-    }
+    },
+    setQueryType: (state, action: PayloadAction<string>) => {
+      state.typeQuery = action.payload;
+    }, 
   },
   extraReducers: (builder) => {
     builder.addCase(searchFilms.pending, (state) => {
@@ -62,5 +66,5 @@ const filmsSlice = createSlice({
 })
 
 export { filmsSlice, searchFilms };
-export const { cleanFilms, setPage, setSearchQuery, setTotalPages } = filmsSlice.actions
+export const { cleanFilms, setPage, setSearchQuery, setTotalPages, setQueryType } = filmsSlice.actions
 export default filmsSlice.reducer

@@ -4,6 +4,7 @@ import Login from "./Login/Login";
 import Register from "./Register/Register";
 import Search from "./Search/Search";
 import FilmDetail from "./FilmDetail/FilmDetail";
+import NotFound404 from "./NotFound404/NotFound404";
 
 const router = createBrowserRouter([{
   path: "/",
@@ -20,6 +21,9 @@ const router = createBrowserRouter([{
 },{
   path: "/film/:id",
   element: <FilmDetail />
-}]);
+},{
+  path: "*",
+  element: <NotFound404 />
+}], { basename: "/OMDBFilms/" });
 
 export default router;

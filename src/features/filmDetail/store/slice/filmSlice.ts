@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '../../../../store/store';
-import { fetchFilm } from '../../../../dbConfig/fetch';
+import { fetchFilm } from '../../../../helpers/fetch';
 import { initialState } from './state.types';
 
 const API_URL = 'https://www.omdbapi.com/?i=';
@@ -8,8 +8,8 @@ const API_URL = 'https://www.omdbapi.com/?i=';
 const searchFilm = createAsyncThunk(
   'film/searchFilm',
   async (_, thunkAPI) => {
+    const state = thunkAPI.getState() as RootState;
     try {
-      const state = thunkAPI.getState() as RootState;
       const imdb = state.film.imdb;
       let response;
 
@@ -19,7 +19,7 @@ const searchFilm = createAsyncThunk(
       
       return response;
     } catch(error) {
-      console.error(error);
+      state.films.error = (error instanceof Error) ? error.message : "Unknown Error";
     }
   });
 
@@ -44,6 +44,7 @@ const filmSlice = createSlice({
           state.film = action.payload ? action.payload : null;
       } else {
         state.error = action.payload.Error;
+        console.log("set de error")
       }
       state.isLoading = false;
     })

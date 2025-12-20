@@ -10,7 +10,7 @@ const Header = () => {
             <a href="/" className="row-start-1 col-start-1 justify-self-start max-h-7">
                 <h1 className="text-secondary font-bold text-lg">OMDB Films</h1>
             </a>
-            <button onClick={ menuOnClick } className="text-secondary text-2xl justify-self-end max-h-5 sm:hidden">{ 
+            <button onClick={ menuOnClick } className="text-secondary text-2xl justify-self-end max-h-5 sm:hidden leading-1.5">{ 
                 isUserLogged ? (isOpen ? "x" : "☰") : "" 
             }</button>
             <div className={ contentClass }>

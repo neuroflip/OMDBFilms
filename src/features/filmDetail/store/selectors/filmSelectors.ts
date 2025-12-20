@@ -11,7 +11,7 @@ const selectIsLoading = createSelector(
 );
 
 const selectError = createSelector(
-  (state) => state.films,
+  (state) => state.film,
   (film) => film.error
 );
 
