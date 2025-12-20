@@ -29,11 +29,17 @@ const Detail = ({ imdb }: DetailProps) => {
                         <div><strong>Plot</strong>: { loadedFilm.Plot }</div>
                         <br />
                         <div><strong>Genre</strong>: { loadedFilm.Genre }</div>
+                        <div><strong>Year</strong>: { loadedFilm.Year }</div>
                         <div><strong>Type</strong>: { loadedFilm.Type }</div>
                         <div><strong>Rated</strong>: { loadedFilm.Rated }</div>
-                        <div><strong>Imdb Rating</strong>: { loadedFilm.imdbRating }</div>
+                        <div><strong>Production</strong>: { loadedFilm.Production }</div>
                         <div><strong>Director</strong>: { loadedFilm.Director }</div>
+                        <div><strong>Actors</strong>: { loadedFilm.Actors }</div>
                         <div><strong>Awards</strong>: { loadedFilm.Awards }</div>
+                        <div><strong>Imdb Rating</strong>: { loadedFilm.imdbRating }</div>
+                        <div>
+                            <a href={ `https://www.imdb.com/title/${loadedFilm.imdbID}/` } className="text-primary" target="_blank">imbd link</a>
+                        </div>
                     </div>
                 </FilmCard>
             </> : <>{ error }</> }

@@ -4,7 +4,7 @@ const useSearchBar = (onSearchQueryChange: (searchQuery: string) => void, onType
     [ (event: React.ChangeEvent<HTMLInputElement>) => void, (event: React.ChangeEvent<HTMLSelectElement>) => void,
         string, string ] => {
     const [ searchQuery, setSearchQuery ] = React.useState("");
-    const [ typeQuery, setTypeQuerty ] = React.useState("movie");
+    const [ typeQuery, setTypeQuerty ] = React.useState("any");
     const [ bouncingTimeout, setBouncingTimeout ] = React.useState(0);
     const onQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;
@@ -16,7 +16,7 @@ const useSearchBar = (onSearchQueryChange: (searchQuery: string) => void, onType
         }
         if (value.length > 0 && value.trim().length > 0) {
             setBouncingTimeout(setTimeout(() => {
-                onSearch();
+                onSearch();                
             }, 1000));
         }
     }
@@ -27,6 +27,7 @@ const useSearchBar = (onSearchQueryChange: (searchQuery: string) => void, onType
         onTypeQueryChange(value);
         setTypeQuerty(value);
     }
+
     return [ onQueryChange, onTypeChange, searchQuery, typeQuery ];
 }
 

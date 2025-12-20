@@ -11,7 +11,8 @@ const searchFilms = createAsyncThunk(
     const state = thunkAPI.getState() as RootState;
     try {
       const searchQuery = state.films.searchQuery;
-      const response = await fetchFilm(API_URL, searchQuery, state.films.currentPage);
+      const type = state.films.typeQuery.replace('any', '');
+      const response = await fetchFilm(API_URL, searchQuery, type, state.films.currentPage);
       
       return response;
     } catch(error) {
@@ -35,7 +36,7 @@ const filmsSlice = createSlice({
     setTotalPages: (state, action: PayloadAction<number>) => {
       state.totalPages = action.payload;
     },
-    setTypeQuery: (state, action: PayloadAction<string>) => {
+    setQueryType: (state, action: PayloadAction<string>) => {
       state.typeQuery = action.payload;
     }, 
   },
@@ -65,5 +66,5 @@ const filmsSlice = createSlice({
 })
 
 export { filmsSlice, searchFilms };
-export const { cleanFilms, setPage, setSearchQuery, setTotalPages } = filmsSlice.actions
+export const { cleanFilms, setPage, setSearchQuery, setTotalPages, setQueryType } = filmsSlice.actions
 export default filmsSlice.reducer

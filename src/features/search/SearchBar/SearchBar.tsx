@@ -4,13 +4,19 @@ import type { SearchBarProps } from "./SearchBar.types";
 const SearchBar = ({ onSearchQueryChange, onTypeQueryChange, onSearch }: SearchBarProps) => {
     const [ onQueryChange, onTypeChange, searchQuery, typeQuery ] = useSearchBar(onSearchQueryChange, onTypeQueryChange, onSearch);
     return (<div className="mt-10 sm:mt-25 mb-5">
-        Search: <input type="text" className="ml-5 input sm:min-w-100 mr-5" value={ searchQuery } onChange={ onQueryChange } />
-        Type: <select onChange={ onTypeChange }>
-            <option selected={ typeQuery === "movie" }>movie</option>
-            <option selected={ typeQuery === "series" }>series</option>
-            <option selected={ typeQuery === "episode" }>episode</option>
-            <option selected={ typeQuery === "any" }>any</option>
-        </select>
+        <strong>Search</strong>: 
+        <input type="text" className="ml-5 input sm:min-w-100 mr-5"
+            value={ searchQuery } onChange={ onQueryChange } placeholder="Search for a film, serie, episode..."/>
+        <div className="sm:inline-block mt-5 sm:mt-0">
+            <strong>Type</strong>: 
+            <select value={ typeQuery } className="ml-3 p-4 border border-secondary rounded-xl" onChange={ onTypeChange }>
+                <option>movie</option>
+                <option>series</option>
+                <option>episode</option>
+                <option>any</option>
+            </select>
+            <input type="submit" hidden />
+        </div>
     </div>);
 }
 

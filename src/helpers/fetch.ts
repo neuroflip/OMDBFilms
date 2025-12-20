@@ -1,5 +1,6 @@
-const fetchFilm = async (apiUrl: string, term: string, page?: number) => {
-  const response = await fetch(`${apiUrl}${term}${page ? `&page=${page}` : ''}&apikey=${import.meta.env.VITE_OMDB_APIKEY}`);
+const fetchFilm = async (apiUrl: string, term: string, type: string, page?: number) => {
+  const queryUrl = `${apiUrl}${term}${page ? `&page=${page}` : '' }${ type ? `&type=${type}`: ''}&apikey=${import.meta.env.VITE_OMDB_APIKEY}`;
+  const response = await fetch(queryUrl);
 
   if (response.ok) {
     const result = await response.json();
