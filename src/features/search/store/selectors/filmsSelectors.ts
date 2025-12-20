@@ -25,6 +25,11 @@ const selectSearchQuery = createSelector(
   (films) => films.searchQuery
 );
 
+const selectTypeQuery = createSelector(
+  (state) => state.films,
+  (films) => films.typeQuery
+);
+
 const selectIsLoading = createSelector(
   (state) => state.films,
   (films) => films.isLoading
@@ -36,4 +41,4 @@ const selectError = createSelector(
 );
 
 export { selectFilms, selectTotalFilms, selectCurrentPage, selectSearchQuery, 
-  selectTotalPages, selectIsLoading, selectError };
+  selectTotalPages, selectIsLoading, selectError, selectTypeQuery };

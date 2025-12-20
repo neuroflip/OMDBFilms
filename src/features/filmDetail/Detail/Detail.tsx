@@ -3,7 +3,7 @@ import { NavLink, useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { setImdb } from '../store/slice/filmSlice';
 import { searchFilm } from '../store/slice/filmSlice';
-import { selectFilm, selectIsLoading } from '../store/selectors/filmSelectors';
+import { selectError, selectFilm, selectIsLoading } from '../store/selectors/filmSelectors';
 import type { AppDispatch } from '../../../store/store';
 import Spinner from '../../../components/Spinner/Spinner';
 import FilmCard from '../../../components/FilmCard/FilmCard';
@@ -14,14 +14,15 @@ const Detail = ({ imdb }: DetailProps) => {
     const navigate = useNavigate();
     const loadedFilm = useSelector(selectFilm);
     const isLoading = useSelector(selectIsLoading);
+    const error = useSelector(selectError);
     
     React.useEffect(() => {
         dispatch(setImdb(imdb));
         dispatch(searchFilm());
-    }, []);
+    }, [dispatch, imdb]);
 
     return <div className="flex flex-col m-auto max-w-lg bg-linear-90 rounded-xl p-5 align-middle items-center justify-center">
-        { isLoading ? <Spinner></Spinner> : loadedFilm ? 
+        { isLoading ? <Spinner></Spinner> : !error && loadedFilm ? 
             <>
                 <FilmCard film={ loadedFilm } showActions={ true }>
                     <div className="text-left mt-10">
@@ -35,7 +36,7 @@ const Detail = ({ imdb }: DetailProps) => {
                         <div><strong>Awards</strong>: { loadedFilm.Awards }</div>
                     </div>
                 </FilmCard>
-            </> : <>Film not loaded</> }
+            </> : <>{ error }</> }
             <NavLink className="text-primary" to="/" onClick={(e) => { e.preventDefault(); navigate(-1)}}>Back</NavLink>
     </div>;
 }

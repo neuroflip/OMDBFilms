@@ -1,7 +1,7 @@
 import type { CardProps } from "./FilmCard.types";
 import { NavLink } from "react-router";
 
-import imageNotFound from './assets/images/404.png';
+import imageNotFound from '../../assets/images/404.png';
 
 const FilmCard = ({ film, showActions = true, children }: CardProps) => {
     const onImageError = (event: React.SyntheticEvent<HTMLImageElement>) => {

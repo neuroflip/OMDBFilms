@@ -1,5 +1,5 @@
 import SearchBar from "../SearchBar/SearchBar";
-import FilmList from "../../filmListing/FilmList/FilmList";
+import FilmList from "../FilmList/FilmList";
 import useSearch from "./hooks/useSeach";
 
 const Search = () => {

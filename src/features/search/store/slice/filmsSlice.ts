@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '../../../../store/store';
-import { fetchFilm } from '../../../../dbConfig/fetch';
+import { fetchFilm } from '../../../../helpers/fetch';
 import { initialState } from './state.types';
 
 const API_URL = 'https://www.omdbapi.com/?s=';
@@ -34,7 +34,10 @@ const filmsSlice = createSlice({
     },
     setTotalPages: (state, action: PayloadAction<number>) => {
       state.totalPages = action.payload;
-    }
+    },
+    setTypeQuery: (state, action: PayloadAction<string>) => {
+      state.typeQuery = action.payload;
+    }, 
   },
   extraReducers: (builder) => {
     builder.addCase(searchFilms.pending, (state) => {
