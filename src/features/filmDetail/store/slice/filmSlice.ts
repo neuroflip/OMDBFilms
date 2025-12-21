@@ -44,7 +44,6 @@ const filmSlice = createSlice({
           state.film = action.payload ? action.payload : null;
       } else {
         state.error = action.payload.Error;
-        console.log("set de error")
       }
       state.isLoading = false;
     })

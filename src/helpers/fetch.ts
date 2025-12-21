@@ -1,6 +1,5 @@
 const genericFetch = async (apiUrl: string) => {
   const response = await fetch(apiUrl);
-
   if (response.ok) {
     const result = await response.json();
 
