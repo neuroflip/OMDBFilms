@@ -3,7 +3,7 @@ import { screen, cleanup, fireEvent } from "@testing-library/react";
 import Search from "../Seach/Search";
 import { renderWithProviders } from "../../../../test/test-utils";
 import { MemoryRouter } from "react-router";
-import React, { act } from "react";
+import { act } from "react";
 
 const mockResponse = {
     Search: [{ imdbID: "1", Title: "Film 1", Year: "2020", Poster: "http://url.to.img", Type: "movie" }],
@@ -12,10 +12,12 @@ const mockResponse = {
 };
 
 vi.mock("../../../hooks/useIntersectionObserver", () => ({
-  default: (_callback: () => void, _needsToCallback: boolean) => {
+  default: () => {
     const div = document.createElement("div");
 
-    return React.useRef(div);
+    return {
+        current: div
+    }
   }
 }));
 

@@ -6,10 +6,12 @@ import { MemoryRouter } from "react-router";
 import React, { act } from "react";
 
 vi.mock("../../../hooks/useIntersectionObserver", () => ({
-  default: (_callback: () => void, _needsToCallback: boolean) => {
+  default: () => {
     const div = document.createElement("div");
 
-    return React.useRef(div);
+    return {
+        current: div
+    }
   }
 }));
 

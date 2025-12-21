@@ -1,7 +1,8 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen, cleanup } from "@testing-library/react";
 import Search from "../Search";
-import React from "react";
+import type { FilmListProps } from "../../FilmList/FilmList.types";
+import type { SearchBarProps } from "../../SearchBar/SearchBar.types";
 
 const mockOnInfiniteScrollNextLoad = vi.fn();
 const mockOnSearch = vi.fn();
@@ -21,15 +22,17 @@ return Promise.resolve({
 });
 
 vi.mock("../../../../hooks/useIntersectionObserver", () => ({
-  default: (_callback: () => void, _needsToCallback: boolean) => {
+  default: () => {
     const div = document.createElement("div");
 
-    return React.useRef(div);
+    return {
+        current: div
+    }
   }
 }));
 
 vi.mock("../../FilmList/FilmList", () => ({
-  default: ({ films, totalFilms, totalPages, currentPage, isLoading, error }: any) => (
+  default: ({ films, totalFilms, totalPages, currentPage, isLoading, error }: FilmListProps) => (
     <div data-testid="film-list">
       <span>{films.length}</span>
       <span>{totalFilms}</span>
@@ -42,7 +45,7 @@ vi.mock("../../FilmList/FilmList", () => ({
 }));
 
 vi.mock("../../SearchBar/SearchBar", () => ({
-  default: ({ onSearchQueryChange, onTypeQueryChange, onSearch }: any) => (
+  default: ({ onSearchQueryChange, onTypeQueryChange, onSearch }: SearchBarProps) => (
     <div data-testid="search-bar">
         <div data-testid="search-bar-term" onClick={ () => onSearchQueryChange("batman") }>query</div>
         <div data-testid="search-bar-search" onClick={ () => onSearch() }>search</div>

@@ -43,7 +43,6 @@ const filmsSlice = createSlice({
     })
     .addCase(searchFilms.rejected, (state, action) => {
       state.isLoading = false;
-      console.log(action.error)
       state.error = action.error.message ? action.error.message : "Unknown Error";
     })
     .addCase(searchFilms.fulfilled, (state, action) => {
