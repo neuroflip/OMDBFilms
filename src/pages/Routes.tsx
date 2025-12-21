@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router";
+import { createHashRouter } from "react-router";
 import Landing from "./Landing/Landing";
 import Login from "./Login/Login";
 import Register from "./Register/Register";
@@ -6,7 +6,7 @@ import Search from "./Search/Search";
 import FilmDetail from "./FilmDetail/FilmDetail";
 import NotFound404 from "./NotFound404/NotFound404";
 
-const router = createBrowserRouter([{
+const router = createHashRouter([{
   path: "/",
   element: <Landing />
 },{
@@ -24,6 +24,6 @@ const router = createBrowserRouter([{
 },{
   path: "*",
   element: <NotFound404 />
-}], { basename: "/OMDBFilms/" });
+}]);
 
 export default router;

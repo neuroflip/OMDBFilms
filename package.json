@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://neuroflip.github.io/omdbfilms/",
+  "homepage": "https://neuroflip.github.io/OMDBFilms/",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
