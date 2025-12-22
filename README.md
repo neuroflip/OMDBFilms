@@ -76,6 +76,7 @@ The project is structured using the next philosophy:
 
 ## Components diagram: 
 
+![alt components diagram](/etc/components.png)
 
 ## Considerations
 
