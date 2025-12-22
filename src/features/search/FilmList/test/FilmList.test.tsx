@@ -96,7 +96,7 @@ describe("FilmList", () => {
 
     expect(useIntersectionObserver.default).toHaveBeenCalledWith(
       defaultProps.onInfiniteScrollNextLoad,
-      true // currentPage + 1 <= totalPages → 2 <= 2
+      true
     );
   });
 });

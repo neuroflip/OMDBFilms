@@ -1,24 +1,8 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { screen, fireEvent, cleanup, act } from "@testing-library/react";
-import Detail from "../Detail";
-import type { Film } from "../../../../components/FilmCard/FilmCard.types";
-import { renderWithProviders } from "../../../../../test/test-utils";
-
-vi.mock("../../../components/Spinner/Spinner", () => ({
-  default: () => <div data-testid="spinner" />,
-}));
-
-vi.mock("../store/slice/filmSlice", () => ({
-  setImdb: vi.fn((imdb: string) => ({ type: "setImdb", payload: imdb })),
-  searchFilm: vi.fn(() => ({ type: "searchFilm" })),
-}));
-
-vi.mock("../store/selectors/filmSelectors", () => ({
-  selectFilm: vi.fn(),
-  selectIsLoading: vi.fn(),
-  selectError: vi.fn(),
-}));
-
+import Detail from "../Detail/Detail";
+import type { Film } from "../../../components/FilmCard/FilmCard.types";
+import { renderWithProviders } from "../../../../test/test-utils";
 
 const navigateMock = vi.fn();
 vi.mock(import("react-router"), async (importOriginal) => {
@@ -73,9 +57,8 @@ describe("Detail", () => {
     it("renders spinner when loading", () => {
       import.meta.env.VITE_OMDB_APIKEY = 'myApiKey';
       renderWithProviders(<MemoryRouter><Detail imdb="tt123" /></MemoryRouter>);
-      const spinner = document.getElementById("spinner");
 
-      expect(spinner).toBeInTheDocument();
+      expect(document.getElementById("spinner")).toBeInTheDocument();
     });
 
     it("renders film details when film is loaded", async () => {

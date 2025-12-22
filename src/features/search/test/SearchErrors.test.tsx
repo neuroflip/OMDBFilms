@@ -3,7 +3,7 @@ import { screen, cleanup, fireEvent } from "@testing-library/react";
 import Search from "../Seach/Search";
 import { renderWithProviders } from "../../../../test/test-utils";
 import { MemoryRouter } from "react-router";
-import React, { act } from "react";
+import { act } from "react";
 
 vi.mock("../../../hooks/useIntersectionObserver", () => ({
   default: () => {
