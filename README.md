@@ -9,13 +9,13 @@ Production link: [OMDB Films](https://neuroflip.github.io/OMDBFilms/)
 
 ### Features
 
-- Login / Register form (with no activation link)
-- search using a search term and a film type (movie, serie, episode)
-- infinite scroll in search results
-- film detail view 
-- imdb external link for each film entry
-- shareable detail film url
-- responsive UI
+- **Login** / **Register** form (with no activation link)
+- **search** using a search term and a film type (movie, serie, episode)
+- **infinite scroll** in search results
+- **film detail view** 
+- **imdb external link** for each film entry
+- shareable **detail film url**
+- **responsive UI**
 
 ## Install and run
 
@@ -59,20 +59,25 @@ $ npm run lint
 
 The project is structured using the next philosophy:
 
-- /src: all the source code organized as:
-  - /src/components: common code used broadly
-  - /src/features: app features like:
-    - /src/features/filmDetail: individual film view and film urls
-    - /src/features/Landing: landing functionality
-    - /src/features/NotFound404: 404 functionality
-    - /src/features/Login: login functionality
-    - /src/features/Register: register functionality
-    - /src/features/Search: search functionality
+- **/src**: all the source code organized as:
+  - **/src/components**: common code used broadly
+  - **/src/features**: app features like:
+    - **/src/features/filmDetail**: individual film view and film urls
+    - **/src/features/Landing**: landing functionality
+    - **/src/features/NotFound404**: 404 functionality
+    - **/src/features/Login**: login functionality
+    - **/src/features/Register**: register functionality
+    - **/src/features/Search**: search functionality
   - /src/helpers: fetch and supabase client code
   - /src/pages: implementation of the main route pages
   - /src/store: main store creation code
   - /src/hooks: 
 - all the components are self included having react component code, custom hooks, css styles, image assets, types and store slices and selectors
+
+- **Redux store slices** are declared per feature:
+  - users feature - **useSlice**: to store the user session (setSession, clearSession)
+  - search feature: **filmsSlice** - to store a bunch of films for search feature (cleanFilms, setPage, setSearchQuery, setTotalPAges, setQueryType, searchFilms (async thumk with pending/fulfilled/rejected states))
+  - filmDetail feature: **filmSlice** - to store the current film showing at details page (setImdb, searchFilm (async thumk with pending/fulfilled/rejected states))
 
 ## Components diagram: 
 
@@ -80,17 +85,22 @@ The project is structured using the next philosophy:
 
 ## Considerations
 
-- The React Router is using HashRouter to support github pages deploy. This allows to github pages serve path routes using hash urls like https://neuroflip.github.io/OMDBFilms/#/film/tt0103064
-- Using supabase to support login with email / password and store users. The implementation and supabase configuration does not uses email verification links
-- The search results page implements a infinite scroll using IntersectionObserver. It is implemented as a custom hook.
-- There is url guard protection implemented using a custom hook used in all the private routes (like /search one)
-- Some components with more complex logic are using custom hooks to separate logic from UI
-- The supabase client and the fetch code is using environment variables (not uploaded into this repo to keep the secrets not private). There is a .env.example file with no keys provided as example.
-- The deploy process at .github/workflows/ghpages.yml creates a production .env file using environment variables declared in github.
+- The React Router is using **HashRouter** to support **github pages deploy**. This allows to github pages serve path routes using hash urls like https://neuroflip.github.io/OMDBFilms/#/film/tt0103064
+- Using **supabase** to support **login with email / password and store users**. The implementation and supabase configuration does not uses email verification links
+- The search results page implements a **infinite scroll using IntersectionObserver**. It is implemented as a custom hook.
+- There is **url guard protection** implemented using a custom hook used in all the private routes (like /search one)
+- Some components with more complex logic are using **custom hooks to separate logic from UI**
+- The supabase client and the fetch code is using environment variables (not uploaded into this repo to keep the secrets not private). There is a **.env.example** file with no keys provided as example.
+- The deploy process at .github/workflows/ghpages.yml creates a **production .env file using environment variables declared in github**.
 
 ## Testing
 
-- Tests implemented using vitest.
+- Tests implemented using **vitest**
+- There are **unit tests** and **integration tests**
+- integration tests are per features (for film details and search functionality):
+  - /src/features/filmDetails/test
+  - /src/features/search/test
+
 
 ## CI pipeline
 
