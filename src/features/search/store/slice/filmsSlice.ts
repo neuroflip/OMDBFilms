@@ -9,15 +9,11 @@ const searchFilms = createAsyncThunk(
   'films/searchFilms',
   async (_, thunkAPI) => {
     const state = thunkAPI.getState() as RootState;
-    try {
-      const searchQuery = state.films.searchQuery;
-      const type = state.films.typeQuery.replace('any', '');
-      const response = await searchFilm(API_URL, searchQuery, type, state.films.currentPage);
-      
-      return response;
-    } catch(error) {
-      state.films.error = (error instanceof Error) ? error.message : "Unknown Error";
-    }
+    const searchQuery = state.films.searchQuery;
+    const type = state.films.typeQuery.replace('any', '');
+    const response = await searchFilm(API_URL, searchQuery, type, state.films.currentPage);
+
+    return response;
   });
 
 const filmsSlice = createSlice({
@@ -45,8 +41,9 @@ const filmsSlice = createSlice({
       state.isLoading = true;
       state.error = null;
     })
-    .addCase(searchFilms.rejected, (state) => {
+    .addCase(searchFilms.rejected, (state, action) => {
       state.isLoading = false;
+      state.error = action.error.message ? action.error.message : "Unknown Error";
     })
     .addCase(searchFilms.fulfilled, (state, action) => {
       if (!action.payload.Error) {

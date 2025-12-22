@@ -9,7 +9,6 @@ const searchFilm = createAsyncThunk(
   'film/searchFilm',
   async (_, thunkAPI) => {
     const state = thunkAPI.getState() as RootState;
-    try {
       const imdb = state.film.imdb;
       let response;
 
@@ -18,9 +17,6 @@ const searchFilm = createAsyncThunk(
       }
       
       return response;
-    } catch(error) {
-      state.films.error = (error instanceof Error) ? error.message : "Unknown Error";
-    }
   });
 
 const filmSlice = createSlice({
@@ -36,15 +32,15 @@ const filmSlice = createSlice({
       state.isLoading = true;
       state.error = null;
     })
-    .addCase(searchFilm.rejected, (state) => {
+    .addCase(searchFilm.rejected, (state, action) => {
       state.isLoading = false;
+      state.error = action.error.message ? action.error.message : "Unknown Error";
     })
     .addCase(searchFilm.fulfilled, (state, action) => {
       if (!action.payload.Error) {
           state.film = action.payload ? action.payload : null;
       } else {
         state.error = action.payload.Error;
-        console.log("set de error")
       }
       state.isLoading = false;
     })
