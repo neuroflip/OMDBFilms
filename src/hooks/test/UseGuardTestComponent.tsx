@@ -5,7 +5,6 @@ import { useDispatch } from "react-redux";
 const TestComponent = ({setsSession} : { setsSession: boolean }) => {
     const dispatch = useDispatch();
     if(setsSession) {
-        console.log("enmtra?");
         dispatch(setSession({
             provider_token: "providerToken",
             provider_refresh_token: "providerRefreshToken",

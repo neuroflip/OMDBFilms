@@ -7,9 +7,7 @@ const useGuard = () => {
     const navigate = useNavigate();
     const session = useSelector(selectUserSession);
 
-    console.log("vuelve?")
     React.useEffect(() => {
-        console.log(session)
         if (!session) {
             navigate("/");
         }

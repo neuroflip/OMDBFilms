@@ -13,8 +13,8 @@ beforeEach(() => {
   vi.clearAllMocks();
 
   
-  (globalThis as any).IntersectionObserver = vi.fn()
-    .mockImplementation(function (this: any, callback: IntersectionObserverCallback) {
+  globalThis.IntersectionObserver = vi.fn()
+    .mockImplementation(function (this: IntersectionObserver, callback: IntersectionObserverCallback) {
     intersectionCallback = callback;
 
     this.observe = observeMock;

@@ -17,10 +17,6 @@ const useSession = (redirectPage?: string) => {
                 }
             }
         });
-        const { data: { subscription } } = supabaseClient.auth.onAuthStateChange((_event, session) => {
-            //prepared for logout
-            console.log(session);
-        });
 
         return () => subscription.unsubscribe();
     }, [dispatch, navigate, redirectPage]);

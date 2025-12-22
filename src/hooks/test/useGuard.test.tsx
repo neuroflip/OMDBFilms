@@ -17,13 +17,13 @@ describe("useGuard", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
-/*
+
   it("redirects to '/' when there is no session", () => {
     renderWithProviders(<MemoryRouter><TestComponent setsSession={false} /></MemoryRouter>);
 
     expect(navigateMock).toHaveBeenCalledWith("/");
   });
-*/
+
   it("does not redirects to '/' when there is session", () => {
     renderWithProviders(<MemoryRouter><TestComponent setsSession={true} /></MemoryRouter>);
 
