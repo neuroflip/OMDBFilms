@@ -67,7 +67,7 @@ describe("Search errors", () => {
                     headers: { "Content-Type": "application/json" }
                   })
                 );
-            });        
+            });
             cleanup();
             import.meta.env.VITE_OMDB_APIKEY = originalViteEnv
         });
