@@ -19,16 +19,16 @@ const useIntersectionObserver = (callback: () => void, needsToCallback: boolean)
 
     React.useEffect(() => {
         const element = intersectionElementRef.current;
-        if (!element) return;
 
+        if (!element) return;
         const observer = new IntersectionObserver(handleIntersection);
         observerRef.current = observer;
 
         observer.observe(element);
 
         return () => {
-        observer.unobserve(element);
-        observer.disconnect();
+            observer.unobserve(element);
+            observer.disconnect();
         };
     }, [handleIntersection]);
 
