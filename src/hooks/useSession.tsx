@@ -8,7 +8,7 @@ const useSession = (redirectPage?: string) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    React.useEffect(() => {
+    React.useEffect(() => {        
         supabaseClient.auth.getSession().then(({ data: { session } }) => {
             if (session) {
                 dispatch(setSession(session));
@@ -17,8 +17,6 @@ const useSession = (redirectPage?: string) => {
                 }
             }
         });
-
-        return () => subscription.unsubscribe();
     }, [dispatch, navigate, redirectPage]);
 }
 
