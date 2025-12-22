@@ -3,9 +3,9 @@ import { waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router";
 import { renderWithProviders } from "../../../test/test-utils";
 
-import TestComponent from "./UseSessionTestComponent";
+import TestComponent from "./testComponents/UseSessionTestComponent";
 import { setSession } from "../../features/users/store/slice/userSlice";
-import { sessionData } from "./sessionData";
+import { sessionData } from "./testComponents/sessionData";
 import supabaseClient from "../../helpers/supabaseClient";
 
 vi.mock("../../helpers/supabaseClient", () => {

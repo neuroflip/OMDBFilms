@@ -1,4 +1,4 @@
-import useSession from "../useSession";
+import useSession from "../../useSession";
 
 const TestComponent = () => {
     useSession("/");

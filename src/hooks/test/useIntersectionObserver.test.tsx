@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, renderHook, act, screen } from "@testing-library/react";
 import useIntersectionObserver from "../useIntersectionObserver";
-import TestComponent from "./IntersectionObserverTestComponent";
+import TestComponent from "./testComponents/IntersectionObserverTestComponent";
 
 const observeMock = vi.fn();
 const unobserveMock = vi.fn();

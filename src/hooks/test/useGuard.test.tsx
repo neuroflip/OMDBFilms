@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { renderWithProviders } from "../../../test/test-utils";
-import TestComponent from "./UseGuardTestComponent copy";
+import TestComponent from "./testComponents/UseGuardTestComponent";
 
 const navigateMock = vi.fn();
 vi.mock(import("react-router"), async (importOriginal) => {

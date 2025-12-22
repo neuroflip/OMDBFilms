@@ -1,5 +1,5 @@
-import useGuard from "../useGuard";
-import { setSession } from "../../features/users/store/slice/userSlice";
+import useGuard from "../../useGuard";
+import { setSession } from "../../../features/users/store/slice/userSlice";
 import { useDispatch } from "react-redux";
 import { sessionData } from "./sessionData";
 import type { Session } from '@supabase/supabase-js'

@@ -1,4 +1,4 @@
-import useIntersectionObserver from "../useIntersectionObserver";
+import useIntersectionObserver from "../../useIntersectionObserver";
 
 const TestComponent = ({ callback, needsToCallback}: {
   callback: () => void;
