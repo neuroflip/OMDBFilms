@@ -31,5 +31,9 @@
   .invalid, .invalid:focus {
     @apply border-primary; 
   }
+
+  .hidden {
+    @apply hidden;
+  }
 }
 
